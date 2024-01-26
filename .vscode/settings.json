@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "scanner.C": "cpp",
+        "token.C": "cpp",
+        "calc.C": "cpp",
+        "calculator.C": "cpp",
+        "parser.C": "cpp",
+        "ast.C": "cpp"
+    }
+}
