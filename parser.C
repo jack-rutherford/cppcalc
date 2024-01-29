@@ -66,9 +66,18 @@ AST* Parser::Term() {
 }
 
 AST* Parser::RestTerm(AST* e) {
-   cout << "RestTerm not implemented" << endl;
+   Token* t = scan->getToken();
 
-   throw ParseError; 
+   if (t->getType() == times) {
+      return RestTerm(new TimesNode(e,Term()));
+   }
+
+   if (t->getType() == divide)
+      return RestTerm(new DivideNode(e,Term()));
+
+   scan->putBackToken();
+
+   return e; 
 }
 
 AST* Parser::Storable() {
