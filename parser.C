@@ -20,7 +20,7 @@ AST* Parser::parse() {
 AST* Parser::Prog() {
    AST* result = Expr();
    Token* t = scan->getToken();
-
+   //cout << "Token: " << t->getType() << endl;
    if (t->getType() != eof) {
       cout << "Syntax Error: Expected EOF, found token at column " << t->getCol() << endl;
       throw ParseError;
@@ -51,18 +51,15 @@ AST* Parser::RestExpr(AST* e) {
 AST* Parser::Term() {
    //write your Term() code here. This code is just temporary
    //so you can try the calculator out before finishing it.
-   Token* t = scan->getToken();
+   // Token* t = scan->getToken();
 
-   if (t->getType() == number) {
-      istringstream in(t->getLex());
-      int val;
-      in >> val;
-      return new NumNode(val);
-   }
-
-   cout << "Term not implemented" << endl;
-
-   throw ParseError; 
+   // if (t->getType() == number) {
+   //    istringstream in(t->getLex());
+   //    int val;
+   //    in >> val;
+   //    return new NumNode(val);
+   // }
+   return RestTerm(Storable());
 }
 
 AST* Parser::RestTerm(AST* e) {
@@ -81,14 +78,19 @@ AST* Parser::RestTerm(AST* e) {
 }
 
 AST* Parser::Storable() {
-   cout << "Storable not implemented" << endl;
-
-   throw ParseError; 
+   // Token* t = scan->getToken();
+   return Factor(); 
 }
 
 AST* Parser::Factor() {
+   Token* t = scan->getToken();
+   if (t->getType() == number) {
+      istringstream in(t->getLex());
+      int val;
+      in >> val;
+      return new NumNode(val);
+   }
    cout << "Factor not implemented" << endl;
-
-   throw ParseError; 
+   throw ParseError;
 }
    

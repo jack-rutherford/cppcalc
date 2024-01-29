@@ -5,6 +5,8 @@
         "calc.C": "cpp",
         "calculator.C": "cpp",
         "parser.C": "cpp",
-        "ast.C": "cpp"
+        "ast.C": "cpp",
+        "functional": "cpp",
+        "ostream": "cpp"
     }
 }

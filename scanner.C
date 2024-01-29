@@ -153,9 +153,9 @@ Token* Scanner::getToken() {
       t = new Token(type,line,column);
    }
 
-#ifdef debug
+// #ifdef debug
    cout << "just found " << lex << " with type " << type << endl;
-#endif
+// #endif
 
    lastToken = t;
    return t;
