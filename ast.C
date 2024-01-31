@@ -88,6 +88,23 @@ int TimesNode::evaluate() {
    return getLeftSubTree()->evaluate() * getRightSubTree()->evaluate();
 }
 
+StoreNode::StoreNode(AST* subTree):
+   UnaryNode(subTree)
+{}
+
+int StoreNode::evaluate() {
+   calc->store(getSubTree()->evaluate());
+   return getSubTree()->evaluate();
+}
+
+RecallNode::RecallNode():
+   AST()
+{}
+
+int RecallNode::evaluate() {
+   return calc->recall();
+}
+
 NumNode::NumNode(int n) :
    AST(),
    val(n)
