@@ -88,7 +88,20 @@ AST* Parser::Factor() {
       istringstream in(t->getLex());
       int val;
       in >> val;
-      return new NumNode(val);
+      NumNode* n = new NumNode(val);
+      t = scan->getToken();
+      if(t->getType() == keyword){
+         if(t->getLex() == "S"){
+            //store node
+            return new StoreNode(n);
+         }
+         else{
+            //recall node
+            return new RecallNode();
+         }
+      }
+      scan->putBackToken();
+      return n;
    }
    cout << "Factor not implemented" << endl;
    throw ParseError;
