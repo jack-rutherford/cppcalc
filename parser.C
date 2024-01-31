@@ -49,16 +49,6 @@ AST* Parser::RestExpr(AST* e) {
 }
 
 AST* Parser::Term() {
-   //write your Term() code here. This code is just temporary
-   //so you can try the calculator out before finishing it.
-   // Token* t = scan->getToken();
-
-   // if (t->getType() == number) {
-   //    istringstream in(t->getLex());
-   //    int val;
-   //    in >> val;
-   //    return new NumNode(val);
-   // }
    return RestTerm(Storable());
 }
 
@@ -78,8 +68,14 @@ AST* Parser::RestTerm(AST* e) {
 }
 
 AST* Parser::Storable() {
-   // Token* t = scan->getToken();
-   return Factor(); 
+   AST* f = Factor();
+   Token* t = scan->getToken();
+   if(t->getType() == keyword && t->getLex() == "S"){
+      //store node
+      return new StoreNode(f);
+   }
+   scan->putBackToken();
+   return f; 
 }
 
 AST* Parser::Factor() {
@@ -88,19 +84,13 @@ AST* Parser::Factor() {
       istringstream in(t->getLex());
       int val;
       in >> val;
-      NumNode* n = new NumNode(val);
-      t = scan->getToken();
-      if(t->getType() == keyword && t->getLex() == "S"){
-         //store node
-         return new StoreNode(n);
-      }
-      scan->putBackToken();
-      return n;
+      return new NumNode(val);
    }
    if(t->getLex() == "R"){
       //Recall node
       return new RecallNode();
    }
+   //L and R parentheses?
    cout << "Factor not implemented" << endl;
    throw ParseError;
 }
