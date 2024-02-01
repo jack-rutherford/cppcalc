@@ -84,13 +84,31 @@ AST* Parser::Factor() {
       istringstream in(t->getLex());
       int val;
       in >> val;
+
+      // t = scan->getToken();
+      // if(t->getType() != rparen){
+      //    scan->putBackToken();
+      // }
+
       return new NumNode(val);
    }
-   if(t->getLex() == "R"){
+   else if(t->getLex() == "R"){
       //Recall node
+      // t = scan->getToken();
+      // if(t->getType() != rparen){
+      //    scan->putBackToken();
+      // }
       return new RecallNode();
    }
-   //L and R parentheses?
+   else if(t->getType() == lparen){
+      AST* ex = Expr();
+
+      t = scan->getToken();
+      if(t->getType() != rparen){
+         cout << "Right parentheses missing" << endl;
+      }
+      return ex;
+   }
    cout << "Factor not implemented" << endl;
    throw ParseError;
 }
