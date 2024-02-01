@@ -11,11 +11,11 @@ class Calculator {
    Calculator();
 
    int eval(string expr);
-   void store(int val);
-   int recall();
+   void store(int val, int index);
+   int recall(int index);
 
  private:
-   int memory;
+   int memory[10];
 };
 
 extern Calculator* calc;

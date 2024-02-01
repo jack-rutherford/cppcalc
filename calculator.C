@@ -7,7 +7,7 @@
 
 
 Calculator::Calculator():
-   memory(0)
+   memory{}
 {}
 
 int Calculator::eval(string expr) {
@@ -25,10 +25,10 @@ int Calculator::eval(string expr) {
    return result;
 }
 
-void Calculator::store(int val) {
-   memory = val;
+void Calculator::store(int val, int index) {
+   memory[index] = val;
 }
 
-int Calculator::recall() {
-   return memory;
+int Calculator::recall(int index) {
+   return memory[index];
 }

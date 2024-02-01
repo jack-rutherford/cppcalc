@@ -20,7 +20,6 @@ AST* Parser::parse() {
 AST* Parser::Prog() {
    AST* result = Expr();
    Token* t = scan->getToken();
-   //cout << "Token: " << t->getType() << endl;
    if (t->getType() != eof) {
       cout << "Syntax Error: Expected EOF, found token at column " << t->getCol() << endl;
       throw ParseError;
@@ -72,7 +71,8 @@ AST* Parser::Storable() {
    Token* t = scan->getToken();
    if(t->getType() == keyword && t->getLex() == "S"){
       //store node
-      return new StoreNode(f);
+      AST* memL = Factor();
+      return new StoreNode(f, memL->evaluate());
    }
    scan->putBackToken();
    return f; 
@@ -85,20 +85,11 @@ AST* Parser::Factor() {
       int val;
       in >> val;
 
-      // t = scan->getToken();
-      // if(t->getType() != rparen){
-      //    scan->putBackToken();
-      // }
-
       return new NumNode(val);
    }
    else if(t->getLex() == "R"){
-      //Recall node
-      // t = scan->getToken();
-      // if(t->getType() != rparen){
-      //    scan->putBackToken();
-      // }
-      return new RecallNode();
+      AST* memL = Factor();
+      return new RecallNode(memL->evaluate());
    }
    else if(t->getType() == lparen){
       AST* ex = Expr();

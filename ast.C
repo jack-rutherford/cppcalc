@@ -88,21 +88,21 @@ int TimesNode::evaluate() {
    return getLeftSubTree()->evaluate() * getRightSubTree()->evaluate();
 }
 
-StoreNode::StoreNode(AST* subTree):
+StoreNode::StoreNode(AST* subTree, int memLoc):
    UnaryNode(subTree)
 {}
 
 int StoreNode::evaluate() {
-   calc->store(getSubTree()->evaluate());
+   calc->store(getSubTree()->evaluate(), memLoc);
    return getSubTree()->evaluate();
 }
 
-RecallNode::RecallNode():
+RecallNode::RecallNode(int memLoc):
    AST()
 {}
 
 int RecallNode::evaluate() {
-   return calc->recall();
+   return calc->recall(memLoc);
 }
 
 NumNode::NumNode(int n) :

@@ -64,16 +64,22 @@ class DivideNode : public BinaryNode {
 
 class StoreNode : public UnaryNode {
  public:
-   StoreNode(AST* subTree);
+   StoreNode(AST* subTree, int memLoc);
    
    int evaluate();
+
+ private:
+   int memLoc;
 };
 
 class RecallNode : public AST {
  public:
-   RecallNode();
+   RecallNode(int memLoc);
    
    int evaluate();
+
+ private:
+   int memLoc;
 };
 
 class NumNode : public AST {
