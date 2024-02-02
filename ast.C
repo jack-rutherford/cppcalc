@@ -89,7 +89,8 @@ int TimesNode::evaluate() {
 }
 
 StoreNode::StoreNode(AST* subTree, int memLoc):
-   UnaryNode(subTree)
+   UnaryNode(subTree),
+   memLoc(memLoc)
 {}
 
 int StoreNode::evaluate() {
@@ -98,7 +99,8 @@ int StoreNode::evaluate() {
 }
 
 RecallNode::RecallNode(int memLoc):
-   AST()
+   AST(),
+   memLoc(memLoc)
 {}
 
 int RecallNode::evaluate() {

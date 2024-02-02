@@ -7,7 +7,7 @@
 
 
 Calculator::Calculator():
-   memory{}
+   memory()
 {}
 
 int Calculator::eval(string expr) {
